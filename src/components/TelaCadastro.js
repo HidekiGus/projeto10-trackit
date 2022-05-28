@@ -13,21 +13,11 @@ export default function TelaCadastro() {
     const [ password, setPassword ] = useState('');
     const [ foto, setFoto ] = useState('');
     const [ isDisabled, setIsDisabled ] = useState(false);
-    const [ isDone, setIsDone ] = useState(false);
+    const navigate = useNavigate();
 
     function Cadastrar() {
 
         setIsDisabled(true);
-
-        const navigate = useNavigate();
-
-        if (isDone === true) {
-            navigate("/")
-        }
-
-        function confirmarCadastro() {
-            setIsDone(true);
-        }
 
         const corpo = {
             email,
@@ -36,10 +26,10 @@ export default function TelaCadastro() {
             password: password
         }
 
-        
+
         const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", corpo);
 
-        promessa.then(confirmarCadastro)
+        promessa.then(() => navigate("/"))
             
     }
 
