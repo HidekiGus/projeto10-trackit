@@ -1,26 +1,60 @@
 import ReactDOM from "react-dom";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 import Logo from "../images/Logo.png";
 
 export default function TelaCadastro() {
+
+    const [ nome, setNome ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ foto, setFoto ] = useState('');
+    const [ isDisabled, setIsDisabled ] = useState(false);
+    const [ isDone, setIsDone ] = useState(false);
+
+    function Cadastrar() {
+
+        setIsDisabled(true);
+
+        const navigate = useNavigate();
+
+        if (isDone === true) {
+            navigate("/")
+        }
+
+        const corpo = {
+            email,
+            name: nome,
+            image: foto,
+            password: password
+        }
+
+        const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", corpo);
+
+        promessa.then(() => setIsDone(true))
+            
+    }
+
+
     return (
             <Tela>
                 <img src={Logo} />
-                <Input placeholder="email"></Input>
-                <Input placeholder="senha"></Input>
-                <Input placeholder="nome"></Input>
-                <Input placeholder="foto"></Input>
-                <Botao>Cadastrar</Botao>
+                <Input type="text" disabled={isDisabled} placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
+                <Input type="password" disabled={isDisabled} placeholder="senha" value={password} onChange={(e) => setPassword(e.target.value)}></Input>
+                <Input type="text" disabled={isDisabled} placeholder="nome" value={nome} onChange={(e) => setNome(e.target.value)}></Input>
+                <Input type="text" disabled={isDisabled} placeholder="foto" value={foto} onChange={(e) => setFoto(e.target.value)}></Input>
+                <Botao onClick={Cadastrar}>Cadastrar</Botao>
                 <Link to="/" style={{ textDecoration: "none" }}>
                     <Cadastro>Já tem uma conta? Faça login!</Cadastro>
                 </Link>
             </Tela>
     );
 }
+
+
 
 const Tela = styled.div`
     width: 100vw;
@@ -51,13 +85,14 @@ const Input = styled.input`
     font-family: 'Lexend Deca';
     font-weight: 400;
     font-size: 30px;
-    color: #DBDBDB;
 
     box-sizing: border-box;
-
     padding-left: 10px;
-
     margin-bottom: 10px;
+
+    ::placeholder {
+        color: #DBDBDB;
+    }
 `
 
 const Botao = styled.div`

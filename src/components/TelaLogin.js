@@ -12,7 +12,7 @@ export default function TelaLogin() {
             <Tela>
                 <img src={Logo} />
                 <Input placeholder="email"></Input>
-                <Input placeholder="senha"></Input>
+                <Input placeholder="senha" disabled={true}></Input>
                 <Link to="/habitos">
                     <Botao>Entrar</Botao>
                 </Link>
@@ -24,7 +24,7 @@ export default function TelaLogin() {
 }
 
 function CaixaInput() {
-    
+    return
 }
 
 const Tela = styled.div`
