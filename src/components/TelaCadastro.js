@@ -25,6 +25,10 @@ export default function TelaCadastro() {
             navigate("/")
         }
 
+        function confirmarCadastro() {
+            setIsDone(true);
+        }
+
         const corpo = {
             email,
             name: nome,
@@ -32,9 +36,10 @@ export default function TelaCadastro() {
             password: password
         }
 
+        
         const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", corpo);
 
-        promessa.then(() => setIsDone(true))
+        promessa.then(confirmarCadastro)
             
     }
 
