@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Logo from "../images/Logo.png";
 import { useContext } from "react";
 import ProfilePictureContext from "../contexts/ProfilePictureContext";
-
+const { setFotoPerfil } = useContext(ProfilePictureContext);
 
 export default function TelaLogin() {  
 
