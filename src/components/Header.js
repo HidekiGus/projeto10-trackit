@@ -3,15 +3,14 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import Bob from "../images/Bob.svg";
+import { useContext } from "react";
 
-// #TODO: Trocar Bob por props
+export default function Header({ fotoPerfil }) {
 
-export default function Header() {
     return (
         <TelaHeader>
             <h1>TrackIt</h1>
-            <FotoPerfil src={Bob} />
+            <FotoPerfil src={fotoPerfil} alt="" />
         </TelaHeader>
     );
 }

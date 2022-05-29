@@ -1,21 +1,60 @@
 import ReactDOM from "react-dom";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Logo from "../images/Logo.png";
+import { useContext } from "react";
+import ProfilePictureContext from "../contexts/ProfilePictureContext";
 
 
+export default function TelaLogin() {  
 
-export default function TelaLogin() {
+
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ isDisabled, setIsDisabled ] = useState(false);
+    const navigate = useNavigate();
+
+    function Logar(event) {
+
+        event.preventDefault();
+
+        const corpo = {
+            email,
+            password
+        }
+
+        useEffect(() => {
+            function loginAprovado(response) {
+                let a = response.data.image;
+                // setFotoPerfil(a);
+                console.log(a);
+                // navigate("/hoje");
+            }
+    
+            function loginReprovado() {
+                alert("Confira os dados inseridos");
+                setIsDisabled(false);
+            }
+
+            const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", corpo);
+
+            promessa.then(loginAprovado);
+            promessa.catch(loginReprovado);
+        }, []);
+
+
+    }
+    
     return (
             <Tela>
                 <img src={Logo} />
-                <Input placeholder="email"></Input>
-                <Input placeholder="senha" disabled={true}></Input>
-                <Link to="/habitos">
-                    <Botao>Entrar</Botao>
-                </Link>
+                <form onSubmit={Logar}>
+                    <input required placeholder="email" type="text" disabled={isDisabled} value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input required placeholder="senha" type="password" disabled={isDisabled} value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <button disabled={isDisabled} type="submit">Entrar</button> 
+                </form>
                 <Link to="/cadastro" style={{ textDecoration: "none" }}>
                     <Cadastro>Não tem uma conta? Cadastre-se!</Cadastro>
                 </Link>
@@ -23,9 +62,6 @@ export default function TelaLogin() {
     );
 }
 
-function CaixaInput() {
-    return
-}
 
 const Tela = styled.div`
     width: 100vw;
@@ -37,6 +73,11 @@ const Tela = styled.div`
     flex-direction: column;
     justify-content: flex-start;
 
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
     img {
         width: 50vw;
         height: fit-content;
@@ -44,9 +85,8 @@ const Tela = styled.div`
         margin-top: 10vh;
         margin-bottom: 8vh;
     }
-`;
 
-const Input = styled.input`
+    input {
     width: 80vw;
     height: 8vh;
     
@@ -56,20 +96,22 @@ const Input = styled.input`
     font-family: 'Lexend Deca';
     font-weight: 400;
     font-size: 30px;
-    color: #DBDBDB;
 
     box-sizing: border-box;
-
     padding-left: 10px;
-
     margin-bottom: 10px;
-`
 
-const Botao = styled.div`
+    ::placeholder {
+        color: #DBDBDB;
+    }
+    }
+
+    button {
     width: 80vw;
     height: 8vh;
 
     border-radius: 5px;
+    border: 1px solid #52b652;
 
     background-color: #52B6FF;
 
@@ -81,7 +123,8 @@ const Botao = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+    }
+`;
 
 const Cadastro = styled.div`
     font-family: 'Lexend Deca';
