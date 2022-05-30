@@ -7,7 +7,9 @@ import styled from "styled-components";
 import Header from "./Header";
 
 export default function TelaHabitos() {
-    return (
-        <Header></Header>
-    );
+    return
 }
+
+const Tela = styled.div`
+
+`
