@@ -13,17 +13,13 @@ export default function TelaCadastro() {
     const [ password, setPassword ] = useState('');
     const [ foto, setFoto ] = useState('');
     const [ isDisabled, setIsDisabled ] = useState(false);
-    const [ isDone, setIsDone ] = useState(false);
+    const navigate = useNavigate();
 
-    function Cadastrar() {
+    function Cadastrar(event) {
+
+        event.preventDefault();
 
         setIsDisabled(true);
-
-        const navigate = useNavigate();
-
-        if (isDone === true) {
-            navigate("/")
-        }
 
         function chama() {
             setIsDone(true);
@@ -36,9 +32,16 @@ export default function TelaCadastro() {
             password: password
         }
 
+
         const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", corpo);
 
+<<<<<<< HEAD
         promessa.then(chama)
+=======
+        promessa.then(() => navigate("/"))
+
+        promessa.catch(() => setIsDisabled(false))
+>>>>>>> e853da9132e0d8e1cbeae423cd054939054b6b41
             
     }
 
@@ -46,11 +49,13 @@ export default function TelaCadastro() {
     return (
             <Tela>
                 <img src={Logo} />
-                <Input type="text" disabled={isDisabled} placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
-                <Input type="password" disabled={isDisabled} placeholder="senha" value={password} onChange={(e) => setPassword(e.target.value)}></Input>
-                <Input type="text" disabled={isDisabled} placeholder="nome" value={nome} onChange={(e) => setNome(e.target.value)}></Input>
-                <Input type="text" disabled={isDisabled} placeholder="foto" value={foto} onChange={(e) => setFoto(e.target.value)}></Input>
-                <Botao onClick={Cadastrar}>Cadastrar</Botao>
+                <form onSubmit={Cadastrar}>
+                    <input required type="text" disabled={isDisabled} placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <input required type="password" disabled={isDisabled} placeholder="senha" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <input required type="text" disabled={isDisabled} placeholder="nome" value={nome} onChange={(e) => setNome(e.target.value)}/>
+                    <input required type="text" disabled={isDisabled} placeholder="foto" value={foto} onChange={(e) => setFoto(e.target.value)}/>
+                    <button type="submit">Cadastrar</button>
+                </form>
                 <Link to="/" style={{ textDecoration: "none" }}>
                     <Cadastro>Já tem uma conta? Faça login!</Cadastro>
                 </Link>
@@ -70,6 +75,11 @@ const Tela = styled.div`
     flex-direction: column;
     justify-content: flex-start;
 
+    form {
+        display: flex;
+        flex-direction: column; 
+    }
+
     img {
         width: 50vw;
         height: fit-content;
@@ -77,9 +87,8 @@ const Tela = styled.div`
         margin-top: 10vh;
         margin-bottom: 8vh;
     }
-`
 
-const Input = styled.input`
+    input {
     width: 80vw;
     height: 8vh;
     
@@ -96,14 +105,15 @@ const Input = styled.input`
 
     ::placeholder {
         color: #DBDBDB;
+        }
     }
-`
 
-const Botao = styled.div`
+    button {
     width: 80vw;
     height: 8vh;
 
     border-radius: 5px;
+    border: 1px solid #52b6ff;
 
     background-color: #52B6FF;
 
@@ -115,6 +125,7 @@ const Botao = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    }
 `
 
 const Cadastro = styled.div`
