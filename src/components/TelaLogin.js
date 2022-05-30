@@ -6,11 +6,11 @@ import styled from "styled-components";
 import Logo from "../images/Logo.png";
 import { useContext } from "react";
 import ProfilePictureContext from "../contexts/ProfilePictureContext";
-const { setFotoPerfil } = useContext(ProfilePictureContext);
+
 
 export default function TelaLogin() {  
 
-
+    const { setFotoPerfil } = useContext(ProfilePictureContext);
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ isDisabled, setIsDisabled ] = useState(false);
@@ -25,24 +25,23 @@ export default function TelaLogin() {
             password
         }
 
-        useEffect(() => {
-            function loginAprovado(response) {
-                let a = response.data.image;
-                // setFotoPerfil(a);
-                console.log(a);
-                // navigate("/hoje");
-            }
-    
-            function loginReprovado() {
-                alert("Confira os dados inseridos");
-                setIsDisabled(false);
-            }
 
-            const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", corpo);
+        function loginAprovado(response) {
+            let a = response.data.image;
+            setFotoPerfil(a);
+            console.log(a);
+            navigate("/habitos");
+        }
 
-            promessa.then(loginAprovado);
-            promessa.catch(loginReprovado);
-        }, []);
+        function loginReprovado() {
+            alert("Confira os dados inseridos");
+            setIsDisabled(false);
+        }
+
+        const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", corpo);
+
+        promessa.then(loginAprovado);
+        promessa.catch(loginReprovado);
 
 
     }

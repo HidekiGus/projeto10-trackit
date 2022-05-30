@@ -4,8 +4,11 @@ import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom"
 import axios from "axios";
 import styled from "styled-components";
 import { useContext } from "react";
+import ProfilePictureContext from "../contexts/ProfilePictureContext";
 
-export default function Header({ fotoPerfil }) {
+export default function Header() {
+
+    const { fotoPerfil } = useContext(ProfilePictureContext);
 
     return (
         <TelaHeader>
@@ -26,6 +29,9 @@ const TelaHeader = styled.div`
 
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
+    position: fixed;
+    top: 0;
+
     h1 {
         margin-left: 20px;
         font-family: 'Playball';
@@ -36,8 +42,8 @@ const TelaHeader = styled.div`
 
 const FotoPerfil = styled.img`
     border-radius: 98px;
-    width: fit-content;
-    height: 70%;
+    width: 50px;
+    height: 50px;
 
     margin-right: 20px;
 

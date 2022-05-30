@@ -5,11 +5,13 @@ import axios from "axios";
 import styled from "styled-components";
 
 import Header from "./Header";
+import Footer from "./Footer";
 
 export default function TelaHoje() {
     return (
         <>
-        <Header></Header>
+            <Header></Header>
+            <Footer></Footer>
         </>
     );
 }
