@@ -9,12 +9,29 @@ import TasksContext from "../contexts/TasksContext";
 import Header from "./Header";
 import Footer from "./Footer";
 import CriarHabito from "./CriarHabito";
+import Task from "./Task";
+import TokenContext from "../contexts/TokenContext";
 
 export default function TelaHabitos() {
 
+    const { token, setToken } = useContext(TokenContext);
     const [ isCriarHabitoAtivo, setIsCriarHabitoAtivo ] = useState(false);
     const { tasks, setTasks } = useContext(TasksContext);
 
+    function lidarComTasks() {
+        let config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        
+        const promessa = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+        
+        promessa.then((response) => {
+            setTasks(response.data);
+        })
+        
+    }
 
     return (
         <>
@@ -24,8 +41,8 @@ export default function TelaHabitos() {
             <button onClick={() => setIsCriarHabitoAtivo(true)}>+</button>
         </TopoMeusHabitos>
         <MeusHabitos>
-            {isCriarHabitoAtivo ? <CriarHabito setIsCriarHabitoAtivo={setIsCriarHabitoAtivo} /> : null}
-            {tasks.length === 0 ? <h2>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h2> : "" }
+            {isCriarHabitoAtivo ? <CriarHabito setIsCriarHabitoAtivo={setIsCriarHabitoAtivo} /> : lidarComTasks()}
+            {tasks.length === 0 ? <h2>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h2> : tasks.map((task, index) => <Task key={index} id={task.id} titulo={task.name} dias={task.days} /> ) }
         </MeusHabitos>
         <Footer></Footer>
         </>

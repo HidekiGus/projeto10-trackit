@@ -58,6 +58,7 @@ export default function CriarHabito({ setIsCriarHabitoAtivo }) {
             let promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", corpoRequisicao, config);
             promessa.then(() => {
                 setIsCriarHabitoAtivo(false);
+                // obtemTasks();
             })
         }
         setIsDisabled(false);
