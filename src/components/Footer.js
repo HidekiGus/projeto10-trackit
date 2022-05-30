@@ -24,6 +24,7 @@ export default function Footer() {
     return (
         <TelaFooter>
             <h1 onClick={irPraTelaHabitos}>Hábitos</h1>
+            <h1 onClick={irPraTelaHoje}>Hoje</h1>
             <h1 onClick={irPraTelaHistorico}>Histórico</h1>
         </TelaFooter>
     );

@@ -21,10 +21,6 @@ export default function TelaCadastro() {
 
         setIsDisabled(true);
 
-        function chama() {
-            setIsDone(true);
-        }
-
         const corpo = {
             email,
             name: nome,
@@ -35,13 +31,9 @@ export default function TelaCadastro() {
 
         const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", corpo);
 
-<<<<<<< HEAD
-        promessa.then(chama)
-=======
         promessa.then(() => navigate("/"))
 
         promessa.catch(() => setIsDisabled(false))
->>>>>>> e853da9132e0d8e1cbeae423cd054939054b6b41
             
     }
 

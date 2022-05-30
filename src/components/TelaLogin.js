@@ -6,10 +6,12 @@ import styled from "styled-components";
 import Logo from "../images/Logo.png";
 import { useContext } from "react";
 import ProfilePictureContext from "../contexts/ProfilePictureContext";
+import TokenContext from "../contexts/TokenContext";
 
 
 export default function TelaLogin() {  
 
+    const { token, setToken } = useContext(TokenContext);
     const { setFotoPerfil } = useContext(ProfilePictureContext);
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -29,6 +31,8 @@ export default function TelaLogin() {
         function loginAprovado(response) {
             let a = response.data.image;
             setFotoPerfil(a);
+            let b = response.data.token;
+            setToken(b);
             console.log(a);
             navigate("/habitos");
         }

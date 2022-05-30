@@ -7,8 +7,6 @@ import { useContext } from "react";
 import TasksContext from "../contexts/TasksContext";
 import TokenContext from "../contexts/TokenContext";
 
-import { ThreeDots } from "react-loader-spinner";
-
 export default function CriarHabito({ setIsCriarHabitoAtivo }) {
 
     const { token, setToken } = useContext(TokenContext);
@@ -47,8 +45,8 @@ export default function CriarHabito({ setIsCriarHabitoAtivo }) {
         setIsDisabled(true);
         let dias = analisarDiasSelecionados();
         let corpoRequisicao = {
-            name: {nomeHabitoSendoCriado},
-            days: {dias}
+            name: nomeHabitoSendoCriado,
+            days: dias
         }
 
         let config = {
@@ -57,16 +55,10 @@ export default function CriarHabito({ setIsCriarHabitoAtivo }) {
             },
         }
         if (window.confirm("Você confirma a criação desse hábito?") === true) {
-            let promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", corpoRequisicao, {headers: config});
-
-            promessa.then((response) => {
-                console.log("prpont");
+            let promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", corpoRequisicao, config);
+            promessa.then(() => {
                 setIsCriarHabitoAtivo(false);
-                console.log(response)
             })
-            console.log("confirmo");
-        } else {
-            console.log("nao");
         }
         setIsDisabled(false);
     }

@@ -11,14 +11,6 @@ import Footer from "./Footer";
 import CriarHabito from "./CriarHabito";
 
 export default function TelaHabitos() {
-<<<<<<< HEAD
-    return
-}
-
-const Tela = styled.div`
-
-`
-=======
 
     const [ isCriarHabitoAtivo, setIsCriarHabitoAtivo ] = useState(false);
     const { tasks, setTasks } = useContext(TasksContext);
@@ -93,4 +85,3 @@ const MeusHabitos = styled.div`
         }
 `
 
->>>>>>> e853da9132e0d8e1cbeae423cd054939054b6b41
