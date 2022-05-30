@@ -33,6 +33,8 @@ export default function TelaHabitos() {
         
     }
 
+    useEffect(() => lidarComTasks(), [])
+
     return (
         <>
         <Header></Header>
@@ -41,7 +43,7 @@ export default function TelaHabitos() {
             <button onClick={() => setIsCriarHabitoAtivo(true)}>+</button>
         </TopoMeusHabitos>
         <MeusHabitos>
-            {isCriarHabitoAtivo ? <CriarHabito setIsCriarHabitoAtivo={setIsCriarHabitoAtivo} /> : lidarComTasks()}
+            {isCriarHabitoAtivo ? <CriarHabito setIsCriarHabitoAtivo={setIsCriarHabitoAtivo} /> : null}
             {tasks.length === 0 ? <h2>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h2> : tasks.map((task, index) => <Task key={index} id={task.id} titulo={task.name} dias={task.days} /> ) }
         </MeusHabitos>
         <Footer></Footer>
