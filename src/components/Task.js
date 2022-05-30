@@ -20,19 +20,11 @@ export default function Task({ id, titulo, dias }) {
     const { tasks, setTasks } = useContext(TasksContext);
 
     function traduzDiasSelecionados() {
-        for (let i=0; i<diasSelecionados.length; i++) {
-            if (i === dias[i]) {
-                let novaArray = [...diasSelecionados];
-                novaArray[i] = !novaArray[i];
-                setDiasSelecionados(novaArray);
-                console.log(diasSelecionados);
-            }
-            console.log(diasSelecionados);
+        for (let i=0; i<dias.length; i++) {
+            diasSelecionados[dias[i]] = true;
         }
     }
 
-    console.log(diasSelecionados);
-    console.log(dias);
     traduzDiasSelecionados();
 
     return (
